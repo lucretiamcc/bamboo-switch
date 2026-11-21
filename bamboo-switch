@@ -305,7 +305,11 @@ cmd_init() {
     
     # Check if BambuStudio directory exists
     if [ -d "$BAMBU_LINK" ]; then
-        check_not_running
+        #check_not_running
+        if is_bambu_running; then
+            print_error "Please quit Bambu Studio before initializing."
+            return 1
+        fi 
         
         echo "Found existing BambuStudio config."
         read -p "Migrate it to profile '$name'? (Y/n) " -n 1 -r
